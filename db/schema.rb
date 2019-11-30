@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_064932) do
+ActiveRecord::Schema.define(version: 2019_12_08_190144) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -49,12 +49,11 @@ ActiveRecord::Schema.define(version: 2019_11_26_064932) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "subpitch_id", null: false
-    t.integer "id_parent"
+    t.bigint "rating_id"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["subpitch_id"], name: "index_comments_on_subpitch_id"
+    t.index ["rating_id"], name: "fk_rails_79ece97f3a"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -137,6 +136,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_064932) do
     t.string "uid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "wallet", precision: 10, default: "0"
     t.index ["provider", "email"], name: "index_users_on_provider_and_email", unique: true
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
@@ -144,7 +144,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_064932) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookings", "subpitches"
   add_foreign_key "bookings", "users"
-  add_foreign_key "comments", "subpitches"
+  add_foreign_key "comments", "ratings"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "subpitches"
   add_foreign_key "likes", "users"

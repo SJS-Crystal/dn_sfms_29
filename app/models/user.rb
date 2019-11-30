@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  before_save{email.downcase!}
   before_create :create_activation_digest
   attr_accessor :remember_token, :activation_token, :reset_token
   DATA_TYPE_USERS = %i(full_name email password password_confirmation).freeze
@@ -9,6 +10,8 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   VALID_PHONE_REGEX = /\A[\d]{10,}\z/i.freeze
   has_one_attached :avatar
+  has_many :comments, dependent: :destroy
+  has_many :bookings, dependent: :destroy
   has_many :pitches, dependent: :destroy
   validates :full_name, presence: true,
     length: {maximum: Settings.name_in_users_max}
@@ -17,7 +20,7 @@ class User < ApplicationRecord
     format: {with: VALID_EMAIL_REGEX},
     uniqueness: {case_sensitive: false, scope: :provider}
   validates :uid, uniqueness: {scope: :provider}, allow_nil: true
-  validates :phone, format: {with: VALID_PHONE_REGEX}, allow_blank: true
+  validates :phone, format: {with: VALID_PHONE_REGEX}, allow_nil: true
   validates :gender, inclusion: {in: [true, false],
                                  message: "Gender is valid"}, allow_nil: true
   has_secure_password
@@ -25,6 +28,8 @@ class User < ApplicationRecord
     {minimum: Settings.password_min}, allow_nil: true
   validates :password, presence: true, length:
     {minimum: Settings.password_min}, on: :reset_password
+  validates :wallet, numericality: {greater_than_or_equal_to: 0},
+    allow_nil: true
 
   enum role: {admin: 0, owner: 1, user: 2}
   scope :order_active, ->{order activated: :desc}
@@ -81,7 +86,7 @@ class User < ApplicationRecord
   def create_reset_digest
     self.reset_token = User.new_token
     update reset_digest: User.digest(reset_token),
-                      reset_sent_at: Time.zone.now
+           reset_sent_at: Time.zone.now
   end
 
   # Sends password reset email.
