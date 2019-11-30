@@ -16,6 +16,8 @@
         <div class="col">
           <div class="text-uppercase text-muted small"><%= t ".desc", add: subpitch.description %></div>
           <div class="text-uppercase text-muted small"><%= t ".subpitch_type", add: subpitch.subpitch_type_name %></div>
+          <%= link_to t(".show_schedule"), new_subpitch_booking_path(subpitch),
+            class: "btn btn-success" %>
         </div>
       </div>
     </div>

@@ -1,15 +1,8 @@
 Rails.application.routes.draw do
   root "static_pages#home"
-  namespace :admin do
-    root "pages#home"
-    resources :users, controller: "/users"
-    resources :subpitch_types
-    resources :pitches do
-      resources :subpitches, except: :index, controller: "pitches/subpitches"
-      get "/revenue", to: "pitches/revenues#index", on: :collection
-      get "/revenue", to: "pitches/revenues#show", on: :member
-    end
-  end
+
+  patch "pays/update"
+  post "comment/create", to: "comments#create"
   post "/login", to: "sessions#create"
   get "/signup", to: "users#new"
   get "/login", to: "sessions#new"
@@ -24,5 +17,21 @@ Rails.application.routes.draw do
   resources :users
   resources :pitches, only: :index do
     resources :subpitches, only: %i(index show)
+  end
+  resources :subpitches do
+    resources :bookings, only: :new
+  end
+  resources :bookings do
+    resources :pays, only: :new
+  end
+  namespace :admin do
+    root "pages#home"
+    resources :users, controller: "/users"
+    resources :subpitch_types
+    resources :pitches do
+      resources :subpitches, except: :index, controller: "pitches/subpitches"
+      get "/revenue", to: "pitches/revenues#index", on: :collection
+      get "/revenue", to: "pitches/revenues#show", on: :member
+    end
   end
 end
