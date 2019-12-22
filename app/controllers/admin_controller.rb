@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-  before_action :check_logged_in, :check_user
+  before_action :authenticate_user!, :check_user
   layout "admin/application"
 
   private
@@ -8,14 +8,14 @@ class AdminController < ApplicationController
     return if current_user.admin?
 
     redirect_to root_path
-    flash[:danger] = t "msg.danger_permission"
+    flash[:alert] = t "msg.danger_permission"
   end
 
   def check_user
     return unless current_user.user?
 
     redirect_to root_path
-    flash[:danger] = t "msg.danger_permission"
+    flash[:alert] = t "msg.danger_permission"
   end
 
   def check_admin?

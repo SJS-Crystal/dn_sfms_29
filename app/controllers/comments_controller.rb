@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
-  before_action :logged_in_user, only: %i(update destroy)
+  before_action :authenticate_user!, only: %i(update destroy)
   before_action :load_comment, only: %i(update destroy)
   before_action :load_author_comment, only: %i(update destroy)
-  before_action :correct_user, only: %i(update destroy)
+  before_action ->{correct_user @user}, only: %i(update destroy)
   before_action :check_creator, only: %i(update destroy)
 
   def create
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
   def check_login
     return if @fail
 
-    return if logged_in?
+    return if user_signed_in?
 
     @fail = t ".please_log_in"
   end

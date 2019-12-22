@@ -1,0 +1,41 @@
+
+<% provide :title, t(".reset_password") %>
+
+<section class="banner-area relative">
+  <div class="overlay overlay-bg"></div>
+  <div class="container user">
+    <div class="row fullscreen align-items-center
+      justify-content-between p-top-150px p-bot-150px">
+      <div calss="col-md-3"></div>
+      <div class="col-md-6 password_reset_form">
+        <h1><%= t ".reset_password" %></h1>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <%= render "shared/error_messages", object: f.object %>
+          <%= f.hidden_field :reset_password_token %>
+        
+          <div class="field">
+            <%= f.label :password, t(".new password") %><br />
+            <% if @minimum_password_length %>
+              <em><%= t ".length password note", count: @minimum_password_length %></em><br />
+            <% end %>
+            <%= f.password_field :password, autofocus: true,
+              autocomplete: "new-password", class: "form-control" %>
+          </div>
+        
+          <div class="field">
+            <%= f.label :password_confirmation, t(".confirm new password") %><br />
+            <%= f.password_field :password_confirmation,
+              autocomplete: "new-password", class: "form-control" %>
+          </div>
+        
+          <div class="actions">
+            <%= f.submit t(".update"), class: "btn btn-primary" %>
+          </div>
+        <% end %>
+        
+        <%= render "devise/shared/links" %>
+      </div>
+      <div calss="col-md-3"></div>
+    </div>
+  </div>
+</section>

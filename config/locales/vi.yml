@@ -1,16 +1,81 @@
 vi:
+  devise:
+    mailer:
+      unlock_instructions:
+        h1: Booking Soccer
+        greeting: Xin chào
+        p2: Tài khoản của bạn đã bị khóa do đăng nhập sai nhiều lần.
+        p3: "Nhấn vào liên kết bên dưới để mở khóa tài khoản của bạn:"
+        p4: Mở khóa tài khoản của tôi
+      confirmation_instructions_subject: Kích hoạt tài khoản
+      confirmation_instructions:
+        h1: Booking Soccer
+        greeting: Xin chào
+        content_mail: "Nhấn vào link dưới để kích hoạt tài khoản của bạn: "
+        activate: Kích hoạt
+      reset_password_instructions_subject: Thiết lập mật khẩu
+      reset_password_instructions:
+        greeting: Xin chào
+        h1: Thiết lập mật khẩu
+        p1_password_reset: "Để đặt lại mật khẩu của bạn hãy click vào link dưới: "
+        reset_password: Đặt lại mật khẩu
+        p2_password_reset: Link này hết hạn trong 30 phút.
+        p3_password_reset: Nếu bạn không yêu cầu đặt lại mật khẩu hãy bỏ qua
+          email này, mật khẩu của bạn không thay đổi.
+    confirmations:
+      new:
+        resend confirmation instructions: Gửi email xác thực tài khoản
+        send: Gửi yêu cầu
+    passwords:
+      edit:
+        reset_password: Đặt lại mật khẩu
+        update: Cập nhật
+        new password: Mật khẩu mới
+        confirm new password: Nhập lại mật khẩu mới
+        length password note: (ít nhất %{count} kí tự)
+      new:
+        forgot_password: Đặt lại mật khẩu
+        next: Tiếp tục
+    unlocks:
+      new:
+        resend unlock instructions: Gửi email mở khóa tài khoản
+        send: Gửi yêu cầu
+    sessions:
+      new:
+        log_in: Đăng nhập
+        remember_text: Duy trì trạng thái đăng nhập
+    registrations:
+      new:
+        sign_up: Đăng kí
+        length password note: (ít nhất %{count} kí tự)
+      edit:
+        edit_user: Chỉnh sửa người dùng
+        update_your_profile: Cập nhật hồ sơ của bạn
+        cancel my account: Xóa tài khoản của bạn
+        unhappy: Bạn không muốn tiếp sử dụng tài khoản này?
+        back: Quay đầu
+        password note: (Để trống nếu bạn không muốn thay đổi)
+        length password note: Ít nhất %{count} kí tự
+        current password: (Nhập mật khẩu của bạn để xác thực thay đổi)
+        confirm: Bạn chắc chắn chưa?
+  devise_custom:
+    registrations:
+      show:
+        name: Tên
+        gender: Giới tính
+        email: Email
+        phone: Số điện thoại
+        balance: Số tiền hiện tại
+        your_profile: Thông tin cá nhân
   helpers:
     label:
       user:
-        full_name: "Tên đầy đủ"
-        email: "Địa chỉ email"
-        password: "Mật khẩu"
-        password_confirmation: "Nhập lại mật khẩu"
-        name: Tên
-        email: Email
+        full_name: Tên đầy đủ *
+        email: Email *
         password: Mật khẩu
         password_confirmation: Xác nhận mật khẩu
-        phone: Số điện thoại
+        current_password: Mật khẩu hiện tại *
+        phone: Số điện thoại *
         male: Nam
         female: Nữ
       session:
@@ -52,10 +117,13 @@ vi:
   activerecord:
     attributes:
       user:
+        one: User
+        other: Users
         full_name: Tên
         email: Email
         password: Mật khẩu
         password_confirmation: Xác nhận mật khẩu
+        current_password: Mật khẩu hiện tại
         phone: Số điện thoại
         wallet: Số tiền
       comment:
@@ -124,9 +192,9 @@ vi:
       search_pitch: "Tìm kiếm sân"
     left_sidebar:
       passion: "Niềm đam mê bóng đá"
-      get_started: "Bắt đầu đặt"
       content1: "Nếu bạn không thực sự biết sân phù hợp cho bạn và đồng đội của bạn, hãy đến với chúng tôi!"
       get_started: "Bắt đầu"
+      book_soccer: "Book soccer field"
     footer:
       about: "Giới thiệu"
       content1: "Bóng đá là môn thể thao đồng đội được chơi giữa hai đội với nhau, mỗi đội có 11 cầu thủ trên sân. Trò chơi này dùng một quả bóng và thường được chơi trên sân cỏ hình chữ nhật với hai khung thành ở hai đầu sân."
@@ -233,7 +301,6 @@ vi:
         confirm: "Bạn chắc chứ?"
   users:
     welcome_user: "Đăng ký tài khoản thành công!"
-    id_unexist: ID không tồn tại!
     please_log_in: Vui lòng đăng nhập!
     not_allow: Bạn không được phép!
     new:
@@ -244,18 +311,6 @@ vi:
         khoản của bạn.
     update:
       profile_updated: Hồ sơ đã được cập nhật
-    edit:
-      edit_user: Chỉnh sửa người dùng
-      update_your_profile: Cập nhật hồ sơ của bạn
-    show:
-      name: Tên
-      gender: Giới tính
-      email: Email
-      phone: Số điện thoại
-      your_profile: Thông tin cá nhân
-      male: Nam
-      female: Nữ
-      title: "Đặt lịch sân bóng đá nhanh chóng"
     index:
       title: "Danh sách người dùng"
       id: "#"
@@ -270,6 +325,7 @@ vi:
     user:
       edit: "Chỉnh sửa"
       delete: "Xóa"
+      you_sure: Bạn chắc chắn chứ?
   account_activations:
     edit:
       account_activated: Tài khoản đã kích hoạt thành công!
@@ -309,22 +365,6 @@ vi:
     new:
       forgot_password: Quên mật khẩu
     email_address_not_found: Địa chỉ email chưa được đăng kí!
-  user_mailer:
-    account_activation_subject: Kích hoạt tài khoản
-    account_activation:
-      h1: Sample App
-      greeting: Chào
-      content_mail: "Chào mừng đến với Book Soccer! Nhấn vào link dưới để kích
-        hoạt tài khoản của bạn: "
-      activate: Kích hoạt
-    password_reset_subject: Thiết lập mật khẩu
-    password_reset:
-      h1: Thiết lập mật khẩu
-      p1_password_reset: "Để đặt lại mật khẩu của bạn hãy click vào link dưới: "
-      reset_password: Đặt lại mật khẩu
-      p2_password_reset: Link này hết hạn trong 2 giờ.
-      p3_password_reset: Nếu bạn không yêu cầu đặt lại mật khẩu hãy bỏ qua
-        email này, mật khẩu của bạn không thay đổi.
   subpitches:
     danger_load: "Tải thất bại"
     danger_load_subpitch: "Tải thất bại sân nhỏ"
@@ -344,6 +384,7 @@ vi:
       size: "Kích cỡ: %{add}"
       subpitch_type: "Loại sân: %{add}"
       desc: "Mô tả: %{add}"
+      show_schedule: Lịch trình
   msg:
     destroy_success: "Xóa thành công"
     destroy_danger: "Xóa thất bại"
@@ -362,7 +403,7 @@ vi:
     male: "Nam"
     back: "Back"
   will_paginate:
-    previous_labels: "Trang trước"
+    previous_label: "Trang trước"
     next_label: "Trang sau"
   pays:
     new:
@@ -471,3 +512,5 @@ vi:
   oversize_upload_picture: nên nhỏ hơn 5MB
   oversize_upload: Dung lượng tệp tải lên tối đa 5MB. Vui lòng chọn tệp nhỏ hơn
   not_allow: Bạn không được phép
+  id_unexist: Id không tồn tại!
+  invalid athenticity token: Authenticity token không đúng, vui lòng thử lại!

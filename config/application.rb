@@ -15,7 +15,7 @@ module SoccerField
     config.autoload_paths << Rails.root.join("assets")
     config.autoload_paths += %W["#{config.root}/app/validators/"]
     config.i18n.available_locales = [:en, :vi]
-    config.i18n.default_locale = :vi
+    config.i18n.default_locale = :en
     config.time_zone = "Asia/Bangkok"
   end
 end

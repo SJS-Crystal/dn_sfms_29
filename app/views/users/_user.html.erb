@@ -4,11 +4,13 @@
   <td><%= user.full_name %></td>
   <td><%= gender user.gender %></td>
   <td><%= user.phone %></td>
-  <td><%= user.activated %></td>
+  <td><%= user.confirmed_at %></td>
   <td>
     <%= link_to t(".edit"), edit_admin_user_path(user), class: "btn btn-primary" %>
     <% if current_user.admin? && !current_user?(user) %>
-      <%= link_to t(".delete"), user, class: "btn btn-danger", method: :delete, data: {confirm: t(".you_sure?")} %>
+      <%= link_to t(".delete"), destroy_user_path(user),
+        class: "btn btn-danger", method: :delete,
+        data: {confirm: t(".you_sure")} %>
     <% end %>
   </td>
 </tr>

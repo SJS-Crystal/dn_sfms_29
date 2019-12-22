@@ -1,7 +1,8 @@
 <% provide :title, @user.full_name %>
 
-<section class="banner-area relative user">
+<section class="banner-area relative">
   <div class="overlay overlay-bg"></div>
+  <div class="container user">
     <div class="row fullscreen align-items-center justify-content-between
       p-top-150px edit_profile">
       <div class="col-md-4">
@@ -47,10 +48,19 @@
                   <p><b><%= @user.phone %></b></p>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label><%= t ".balance" %>: </label>
+                </div>
+                <div class="col-md-6">
+                  <p><b>$<%= @user.wallet %></b></p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       <div class="col-md-2"></div>
     </div>
     <div class="col-md-3"></div>
+  </div>
 </section>

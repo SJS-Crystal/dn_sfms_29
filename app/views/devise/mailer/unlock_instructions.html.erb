@@ -1,0 +1,9 @@
+<h1><%= t ".h1" %></h1>
+
+<p><%= t ".greeting" %> <%= @resource.full_name %>!</p>
+
+<p><%= t ".p2" %></p>
+
+<p><%= t ".p3" %></p>
+
+<p><%= link_to t(".p4"), unlock_url(@resource, unlock_token: @token) %></p>

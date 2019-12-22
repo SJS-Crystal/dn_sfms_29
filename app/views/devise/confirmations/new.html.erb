@@ -1,0 +1,31 @@
+<% provide :title, t(".resend confirmation instructions") %>
+
+<section class="banner-area relative">
+  <div class="overlay overlay-bg"></div>
+  <div class="container user">
+    <div class="row fullscreen align-items-center
+      justify-content-between p-top-150px p-bot-150px">
+      <div calss="col-md-3"></div>
+      <div class="col-md-6 password_reset_form">
+        <h1><%= t ".resend confirmation instructions" %></h1>
+
+        <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+          <%= render "shared/error_messages", object: f.object %>
+
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", value:
+            (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit t(".send"), class: "btn btn-primary" %>
+          </div>
+        <% end %>
+
+        <%= render "devise/shared/links" %>
+      </div>
+      <div calss="col-md-3"></div>
+    </div>
+  </div>
+</section>

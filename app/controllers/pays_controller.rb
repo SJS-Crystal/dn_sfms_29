@@ -1,8 +1,8 @@
 class PaysController < ApplicationController
   before_action :load_booking, only: %i(update new)
   before_action :load_user_from_booking, only: :update
-  before_action :logged_in_user, only: %i(update new)
-  before_action :correct_user, only: :update
+  before_action :authenticate_user!, only: %i(update new)
+  before_action ->{correct_user @user}, only: :update
 
   def new; end
 

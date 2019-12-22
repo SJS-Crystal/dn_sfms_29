@@ -21,9 +21,6 @@
     <li class="c-header-nav-item px-3">
       <%= link_to t(".users"), admin_users_path, class: "c-header-nav-link" %>
     </li>
-    <li class="c-header-nav-item px-3">
-      <%= link_to t(".settings"), edit_admin_user_path(current_user), class: "c-header-nav-link" %>
-    </li>
   </ul>
   <ul class="c-header-nav ml-auto mr-4">
     <li class="c-header-nav-item d-md-down-none mx-2">
@@ -41,17 +38,7 @@
       <% end %>
       <div class="dropdown-menu dropdown-menu-right pt-0">
         <div class="dropdown-header bg-light py-2"><strong><%= t ".settings" %></strong></div>
-        <%= link_to admin_user_path(current_user), class: "dropdown-item" do %>
-          <svg class="c-icon mr-2">
-            <use xlink:href="/asset/images/admin/sprites/free.svg#cil-user"></use>
-          </svg> <%= t ".profile" %>
-        <% end %>
-        <%= link_to edit_admin_user_path(current_user), class: "dropdown-item" do %>
-          <svg class="c-icon mr-2">
-            <use xlink:href="/asset/images/admin/sprites/free.svg#cil-settings"></use>
-          </svg> <%= t ".settings" %>
-        <% end %>
-        <%= link_to logout_path, class: "dropdown-item" do %>
+        <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
           <svg class="c-icon mr-2">
             <use xlink:href="/asset/images/admin/sprites/free.svg#cil-account-logout"></use>
           </svg> <%= t ".logout" %>

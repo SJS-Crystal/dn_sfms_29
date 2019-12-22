@@ -72,3 +72,4 @@ soccer_dev
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+.note
