@@ -1,8 +1,11 @@
 $("div.alert").remove();
-<% if @fail %>
-  $("body").prepend('<div class="alert alert-danger"> <%= @fail %></div>')
-<% else %>
-  $("body").prepend('<div class="alert alert-success"><%= @success %></div>');
+
+<% if flash.now[:alert] %>
+  $("body").prepend('<div class="alert alert-danger"><%= flash.now[:alert] %></div>')
+<% end %>
+
+<% if flash.now[:notice] %>
+  $("body").prepend('<div class="alert alert-success"><%= flash.now[:notice] %></div>');
   $('#form<%= @comment.rating_id %> textarea').val('');
   $('.comment.<%= @comment.rating_id %>').append('<%= j render "comments/new_comment" %>');
 <% end %>

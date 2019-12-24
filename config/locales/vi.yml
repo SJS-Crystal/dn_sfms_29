@@ -424,6 +424,7 @@ vi:
       please_log_in: Vui lòng đăng nhập để tiếp tục!
       not_found: Booking không tồn tại!
       paid: Đã thanh toán
+      not_allow: Bạn khồng được phép!
     update:
       not_found: Booking không tồn tại!
       error_process: Xảy ra lỗi khi xử lý!
@@ -513,4 +514,8 @@ vi:
   oversize_upload: Dung lượng tệp tải lên tối đa 5MB. Vui lòng chọn tệp nhỏ hơn
   not_allow: Bạn không được phép
   id_unexist: Id không tồn tại!
-  invalid athenticity token: Authenticity token không đúng, vui lòng thử lại!
+  invalid athenticity token: Authenticity token không đúng.
+    Vui lòng tải lại trang và thử lại!
+  unauthenticated: Bạn cần phải đăng nhập hoặc đăng ký trước khi tiếp tục!
+  cancan_authorized: Bạn không có quyền để truy cập trang này!
+  cant comment: Bạn không được phép bình luận!

@@ -1,7 +1,6 @@
 class DeviseCustom::RegistrationsController < Devise::RegistrationsController
-  before_action ->{authenticate_user! force: true}, :load_user, only: :show
-
-  def show; end
+  authorize_resource class: User
+  prepend_before_action :load_user, only: :show
 
   private
 

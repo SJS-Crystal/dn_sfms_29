@@ -1,12 +1,14 @@
 class PaysController < ApplicationController
-  before_action :load_booking, only: %i(update new)
-  before_action :load_user_from_booking, only: :update
-  before_action :authenticate_user!, only: %i(update new)
-  before_action ->{correct_user @user}, only: :update
+  before_action :authenticate_user!
+  before_action :load_booking
+  before_action :load_user_from_booking
 
-  def new; end
+  def new
+    authorize! :update, @booking
+  end
 
   def update
+    authorize! :update, @booking
     ActiveRecord::Base.transaction do
       @booking.status = Settings.paid_status_booking
       @booking.save! context: :payment

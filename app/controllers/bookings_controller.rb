@@ -1,11 +1,10 @@
 class BookingsController < ApplicationController
-  before_action :authenticate_user!, only: %i(create update)
-  before_action :load_subpitch, only: %i(create new)
-  before_action :load_booked_list, only: :create
-  before_action :load_schedule, only: :new
-  before_action :verified_time, only: :create
-  before_action :load_user_in_booking, only: :update
-  before_action ->{correct_user @user}, only: :update
+  authorize_resource
+  prepend_before_action :load_user_in_booking, only: :update
+  prepend_before_action :verified_time, only: :create
+  prepend_before_action :load_schedule, only: :new
+  prepend_before_action :load_booked_list, only: :create
+  prepend_before_action :load_subpitch, only: %i(create new)
 
   def new
     create_schedule_detail

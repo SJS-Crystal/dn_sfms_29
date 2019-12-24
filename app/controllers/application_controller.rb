@@ -1,5 +1,25 @@
 class ApplicationController < ActionController::Base
   rescue_from ActionController::InvalidAuthenticityToken, with: :show_error
+  rescue_from CanCan::AccessDenied do
+    if current_user
+      if controller_name == "comments"
+        respond_to do |format|
+          flash.now[:alert] = t "cant comment"
+          format.js{render "comments/create.js.erb"}
+        end
+      else
+        flash[:alert] = t "cancan_authorized"
+      end
+    elsif controller_name == "comments"
+      respond_to do |format|
+        flash.now[:alert] = t "unauthenticated"
+        format.js{render "comments/create.js.erb"}
+      end
+    else
+      flash[:alert] = t "unauthenticated"
+    end
+    redirect_to root_url if controller_name != "comments"
+  end
   before_action :set_locale
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -26,7 +46,11 @@ class ApplicationController < ActionController::Base
   end
 
   def show_error
-    flash[:alert] = I18n.t ".invalid athenticity token"
-    redirect_to request.base_url
+    if controller_name == "comments"
+      flash.now[:alert] = I18n.t ".invalid athenticity token"
+    else
+      flash[:alert] = I18n.t ".invalid athenticity token"
+      redirect_to request.base_url
+    end
   end
 end

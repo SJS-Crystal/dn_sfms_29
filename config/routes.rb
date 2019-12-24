@@ -6,10 +6,10 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "/users/:id", to: "devise_custom/registrations#show", as: :user
     get "/users/edit/:id", to: "devise/registrations#edit", as: :edit_user
-    get "/admin/users/", to: "users#index", as: :admin_users
-    get "/admin/user/:id/edit/", to: "users#edit", as: :edit_admin_user
-    patch "/admin/users/:id/", to: "users#update", as: :admin_update_user
-    delete "/admin/users/:id/", to: "users#destroy", as: :destroy_user
+    get "/admin/users/", to: "admin/users#index", as: :admin_users
+    get "/admin/user/:id/edit/", to: "admin/users#edit", as: :edit_admin_user
+    patch "/admin/users/:id/", to: "admin/users#update", as: :admin_update_user
+    delete "/admin/users/:id/", to: "admin/users#destroy", as: :destroy_user
   end
   patch "pays/update"
   post "comment/create", to: "comments#create"

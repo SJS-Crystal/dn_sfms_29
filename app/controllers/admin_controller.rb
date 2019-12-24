@@ -1,5 +1,7 @@
 class AdminController < ApplicationController
-  before_action :authenticate_user!, :check_user
+  prepend_before_action :check_not_user
+  # not use "authorize_resource class: User" to prevent user access edit action
+  prepend_before_action :authenticate_user!
   layout "admin/application"
 
   private
@@ -11,7 +13,7 @@ class AdminController < ApplicationController
     flash[:alert] = t "msg.danger_permission"
   end
 
-  def check_user
+  def check_not_user
     return unless current_user.user?
 
     redirect_to root_path

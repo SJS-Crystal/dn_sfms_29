@@ -441,6 +441,7 @@ en:
       please_log_in: Please login to continue!
       not_found: Not found booking!
       paid: Paid
+      not_allow: You are not allow!
     update:
       not_found: Not found booking!
       error_process: An error occurred while processing!
@@ -533,4 +534,8 @@ en:
     smaller file
   not_allow: You are not allowed
   id_unexist: ID not exist!
-  invalid athenticity token: Authenticity token is invalid, try again please!
+  invalid athenticity token: Authenticity token is invalid. Please,
+    reload page and try again!
+  unauthenticated: You need to sign in or sign up before continuing!
+  cancan_authorized: You are not authorized to access this page!
+  cant comment: You can't comment!

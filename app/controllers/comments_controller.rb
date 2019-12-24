@@ -1,17 +1,17 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, only: %i(update destroy)
-  before_action :load_comment, only: %i(update destroy)
-  before_action :load_author_comment, only: %i(update destroy)
-  before_action ->{correct_user @user}, only: %i(update destroy)
-  before_action :check_creator, only: %i(update destroy)
+  authorize_resource
+  prepend_before_action :preprocess_and_save, only: :create
+  prepend_before_action :check_creator, only: %i(update destroy)
+  prepend_before_action :load_author_comment, only: %i(update destroy)
+  prepend_before_action :load_comment, only: %i(update destroy)
+  prepend_before_action :authenticate_user!
 
   def create
-    preprocess_and_save
     respond_to do |format|
-      if !@fail
-        format.js{@success = t ".comment_success"}
+      if !flash.now[:alert]
+        format.js{flash.now[:notice] = t ".comment_success"}
       else
-        format.js{@fail}
+        format.js{flash.now[:alert]}
       end
     end
   end
@@ -22,23 +22,14 @@ class CommentsController < ApplicationController
 
   private
 
-  def check_login
-    return if @fail
-
-    return if user_signed_in?
-
-    @fail = t ".please_log_in"
-  end
-
   def preprocess_and_save
-    check_login
     load_rating
     load_subpitch
     allow_user_booked_and_owner
-    return if @fail
+    return if flash.now[:alert]
 
     @comment = current_user.comments.build comment_params
-    @fail = @comment.errors.full_messages.first unless @comment.save
+    flash.now[:alert] = @comment.errors.full_messages.first unless @comment.save
   end
 
   def comment_params
@@ -46,26 +37,26 @@ class CommentsController < ApplicationController
   end
 
   def allow_user_booked_and_owner
-    return if @fail
+    return if flash.now[:alert]
 
     @user_booked = @rating.booking.user
     @owner = @subpitch.pitch.user
     return if current_user?(@user_booked) || current_user?(@owner)
 
-    @fail = t ".not_allow"
+    flash.now[:alert] = t ".not_allow"
   end
 
   def load_rating
-    return if @fail
+    return if flash.now[:alert]
 
     @rating = Rating.find_by id: comment_params[:rating_id]
     return if @rating
 
-    @fail = t ".not_found_rating_id"
+    flash.now[:alert] = t ".not_found_rating_id"
   end
 
   def load_subpitch
-    return if @fail
+    return if flash.now[:alert]
 
     @subpitch = @rating.subpitch
   end
