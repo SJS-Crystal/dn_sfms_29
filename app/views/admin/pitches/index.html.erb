@@ -1,7 +1,7 @@
 <% provide :title, t(".title") %>
 <h1><%= t ".title" %></h1>
 <div>
-  <%= form_with url: admin_pitches_path, local: true, class: "input-group", method: "get" do |f| %>
+  <%= search_form_for @q, url: admin_pitches_path, class: "input-group" do |f| %>
     <span class="input-group-prepend left">
       <%= f.button "", class: "btn btn-primary" do %>
         <svg class="c-icon h14 w20">
@@ -9,7 +9,8 @@
         </svg> <%= t ".search" %>
       <% end %>
     </span>
-    <%= f.text_field :search, class: "form-control wid30 left", id: "input1-group2",value: params[:search] %>
+    <%= f.search_field :name_or_user_full_name_cont, class: "form-control wid30 left",
+      type: "", id: "input1-group2" %>
     <%= link_to t(".new"), new_admin_pitch_path, class: "right" %>
   <% end %>
 </div>

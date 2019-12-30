@@ -229,6 +229,21 @@ vi:
     index:
       notification: "Không có sân bóng nào hợp lệ!"
   admin:
+    users:
+      edit:
+        update_your_profile: Cập nhật profile
+      index:
+        activated_at: Thời gian kích hoạt
+        phone: Điện thoại
+        gender: Giới tính
+        email: Email
+        full_name: Tên
+        search: Tìm kiếm
+        title: Tiêu đề
+      user:
+        you_sure: Ok baby?
+        edit: Sửa
+        delete: Xóa
     pitches:
       new:
         title: Thêm sân mới

@@ -266,6 +266,21 @@ en:
       address: "Address: "
       notification: "There are no valid football fields!"
   admin:
+    users:
+      edit:
+        update_your_profile: Update your profile
+      index:
+        activated_at: Activited_at
+        phone: Phone
+        gender: Gender
+        email: Email
+        full_name: Full name
+        search: Search
+        title: Title
+      user:
+        you_sure: You sure?
+        edit: Edit
+        delete: Delete
     pitches:
       new:
         title: Add pitch

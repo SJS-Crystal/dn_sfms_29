@@ -1,0 +1,5 @@
+<% if @pitches.present? %>
+  $('#insert').html('<%= j render "static_pages/home" %>');
+<% else %>
+  $('#insert').html('<div class="container-fluid"><div class="alert alert-warning center"> No thing</div><br><br></div>');
+<% end %>

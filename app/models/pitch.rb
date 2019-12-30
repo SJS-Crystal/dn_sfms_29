@@ -22,10 +22,6 @@ class Pitch < ApplicationRecord
   delegate :id, to: :user, prefix: true
   has_one_attached :picture
 
-  scope :search, (lambda do |pitch_name|
-    where("name LIKE ?", "%#{pitch_name}%") if pitch_name
-  end)
-
   scope :newest, ->{order(created_at: :desc)}
 
   scope :by_user, ->(id_user){where("user_id = ?", id_user)}

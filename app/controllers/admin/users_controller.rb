@@ -1,9 +1,12 @@
 class Admin::UsersController < AdminController
-  prepend_before_action :load_user, except: :index
-  prepend_before_action :load_user_index, only: :index
+  before_action :load_user, except: :index
   before_action :check_admin
 
-  def index; end
+  def index
+    @q = User.ransack params[:q]
+    @users = @q.result.accessible_by(current_ability).recent
+               .paginate page: params[:page], per_page: Settings.size.s10
+  end
 
   def edit; end
 
@@ -26,11 +29,6 @@ class Admin::UsersController < AdminController
   end
 
   private
-
-  def load_user_index
-    @users = User.recent.search(params[:search])
-                 .paginate page: params[:page], per_page: Settings.size.s10
-  end
 
   def load_user
     @user = User.find_by id: params[:id]

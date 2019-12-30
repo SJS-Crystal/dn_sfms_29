@@ -1,8 +1,7 @@
 class Admin::PitchesController < AdminController
   before_action :load_pitches_index, only: :index
   before_action :load_pitch, :check_pitch_owner,
-    only: %i(show edit update destroy)
-
+                only: %i(show edit update destroy)
 
   def index; end
 
@@ -59,9 +58,9 @@ class Admin::PitchesController < AdminController
   end
 
   def load_pitches_index
-    @pitches = Pitch.accessible_by(current_ability, :update)
-                    .search(params[:search]).newest
-                    .paginate page: params[:page], per_page: Settings.size.s10
+    @q = Pitch.ransack params[:q]
+    @pitches = @q.result.accessible_by(current_ability, :update).newest
+                 .paginate page: params[:page], per_page: Settings.size.s10
   end
 
   def check_pitch_owner

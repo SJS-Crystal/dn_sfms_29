@@ -1,7 +1,7 @@
 <% provide :title, t(".title") %>
 <h1><%= t ".title" %> </h1>
 <div>
-  <%= form_with url: admin_subpitch_types_path, local: true, class: "input-group wid30 left", method: "get" do |f| %>
+  <%= search_form_for @q, url: admin_subpitch_types_path, class: "input-group wid30 left" do |f| %>
     <span class="input-group-prepend left">
       <%= f.button "", class: "btn btn-primary" do %>
         <svg class="c-icon" class="h14 w20">
@@ -9,7 +9,7 @@
         </svg><%= t "general.search" %>
       <% end %>
     </span>
-    <%= f.text_field :search, class: "form-control wid30 left", id: "input1-group2", value: params[:search] %>
+    <%= f.search_field :name_cont, class: "form-control wid30 left" %>
   <% end %>
   <%= link_to t(".add"), new_admin_subpitch_type_path, class: "right"%>
 </div>

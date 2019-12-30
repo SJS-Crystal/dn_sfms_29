@@ -2,6 +2,8 @@ class DeviseCustom::RegistrationsController < Devise::RegistrationsController
   authorize_resource class: User
   prepend_before_action :load_user, only: :show
 
+  def show; end
+
   private
 
   def load_user

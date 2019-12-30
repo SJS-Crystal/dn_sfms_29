@@ -33,11 +33,6 @@ class User < ApplicationRecord
     allow_nil: true
   enum role: {admin: 0, owner: 1, user: 2}
   scope :recent, ->{order created_at: :desc}
-  scope :search, (lambda do |search|
-    if search
-      where("full_name LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")
-    end
-  end)
 
   class << self
     def from_omniauth auth
