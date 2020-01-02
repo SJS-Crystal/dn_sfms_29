@@ -1,2 +1,0 @@
-class LikeRating < ApplicationRecord
-end

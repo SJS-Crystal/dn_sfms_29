@@ -4,7 +4,7 @@
       <div class="row align-items-center">
         <div class="col-lg-6 col-sm-6 col-6 header-top-left">
           <ul>
-          <% if user_signed_in? %>
+          <% if logged_in? %>
             <li class="name"><%= current_user.full_name %></li>
             <li><%= link_to t(".logout"), logout_path %></li>
             <li><%= link_to t(".profile"), current_user %></li>

@@ -4,7 +4,7 @@ class SubpitchesController < ApplicationController
 
   def index
     @subpitches = @pitch.subpitches
-    @like = current_user.likes.build subpitch_id: params[:id] if user_signed_in?
+    @like = current_user.likes.build subpitch_id: params[:id] if logged_in?
   end
 
   def show; end

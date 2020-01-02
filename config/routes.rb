@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   get "/contact", to: "static_pages#contact"
   resources :password_resets, except: :index
   resources :account_activations, only: :edit
-  devise_for :users
+  resources :users
   resources :pitches, only: :index do
     resources :subpitches, only: %i(index show) do
       resources :likes, only: %i(create destroy), controller: "subpitches/likes"

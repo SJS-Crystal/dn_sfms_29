@@ -8,7 +8,6 @@
 @import 'animate.min';
 @import 'variables';
 @import 'font-awesome.min';
-@import 'social-share-button';
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -21,75 +20,8 @@
 .pad-r10{
   padding-right: 10px;
 }
-.mar5{
-  margin: 5px;
-}
-.hei14{
-  height: 14px;
-}
-.wid20{
-  width: 20px;
-}
-.cl-white{
-  color: $white;
-}
-.text-center{
-  text-align: center;
-}
-.pad0{
-  padding: 0px;
-}
-.auto{
-  margin: 0 auto;
-}
-.wid40{
-  width: 40% !important;
-}
-.wid30{
-  width: 30% !important;
-}
-.wid50{
-  width: 50% !important;
-}
-.wid60{
-  width: 60% !important;
-}
-.wid500p{
-  width: 500px;
-}
-.w150{
-  width: 150px !important;
-}
 .left{
-  float: left;
-}
-.right{
-  float: right;
-}
-.h14{
-  height: 14px;
-}
-.w20{
-  width: 20px;
-}
-.pad-top150{
-  padding-top: 150px;
-}
-.bg-white{
-  background-color: $white;
-}
-.bg-green{
-  background-color: $green-bg;
-}
-.cl-red{
-  color: $red;
-}
-.bg-green2{
-  background: $green;
-}
-.container2{
-  padding: 15px;
-  border-radius: 10px;
+  float: left
 }
 .wid30{
   width: 30% !important;
@@ -436,6 +368,7 @@ input {
 }
 
 /* select time */
+
 #pitch_start_time_5i, #pitch_end_time_5i{
   float: left;
   margin-left: 10px;
