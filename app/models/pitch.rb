@@ -11,12 +11,12 @@ class Pitch < ApplicationRecord
   validates :country, :city, :district,
             presence: true, length: {maximum: Settings.size.s50}
   validates :address, presence: true, length: {maximum: Settings.size.s100}
-  validates :phone, presence: true, numericality: true,
+  validates :phone, presence: true,
             length: {in: Settings.size.s6..Settings.size.s12}
-  validates :end_time, date: {after: :start_time}
+  validates :end_time, date: {after: :start_time}, presence: true
   validates :limit, presence: true, format: {with: NUMBER_FORMAT},
             length: {in: Settings.size.s1..Settings.size.s2}
-  validates :start_time, time: true
+  validates :start_time, time: true, presence: true
   validate :play_time_bigger_limit
 
   delegate :id, to: :user, prefix: true

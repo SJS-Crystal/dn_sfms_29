@@ -1,0 +1,14 @@
+
+set_flash_message "key of flash hash", "key in i18n"[, option]
+
+set_flash_message :notice, :success, kind: provider.capitalize
+
+research these
+is_navigational_format?
+sign_in_and_redirect user, event: :authentication
+
+  devise_for :users,
+    controllers:{omniauth_callbacks: "omniauth_callbacks"}
+
+hot-fix 
+  https://localhost:3000/users/edit.1
