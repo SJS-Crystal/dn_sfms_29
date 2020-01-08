@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  before_save{email.downcase!}
+  before_save{email&.downcase!}
   before_create :create_activation_digest
   attr_accessor :remember_token, :activation_token, :reset_token
   DATA_TYPE_USERS = %i(full_name email password password_confirmation).freeze
@@ -9,41 +9,32 @@ class User < ApplicationRecord
   DATA_TYPE_RESETS_PASSWORD = %i(password password_confirmation).freeze
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   VALID_PHONE_REGEX = /\A[\d]{10,}\z/i.freeze
-  has_one_attached :avatar
+  VALID_FULL_NAME_REGEX = /\A([\p{L}]+[\s])*\p{L}+\z/.freeze
   has_many :comments, dependent: :destroy
   has_many :bookings, dependent: :destroy
   has_many :pitches, dependent: :destroy
   has_many :likes, dependent: :destroy
 
   validates :full_name, presence: true,
-    length: {maximum: Settings.name_in_users_max}
+    length: {maximum: Settings.name_in_users_max},
+    format: {with: VALID_FULL_NAME_REGEX}
   validates :email, presence: true,
     length: {maximum: Settings.email_in_users_max},
     format: {with: VALID_EMAIL_REGEX},
     uniqueness: {case_sensitive: false, scope: :provider}
-  validates :uid, uniqueness: {scope: :provider}, allow_nil: true
+  validates :uid, uniqueness: {case_sensitive: true, scope: :provider},
+            allow_nil: true
   validates :phone, format: {with: VALID_PHONE_REGEX}, allow_nil: true
-  validates :gender, inclusion: {in: [true, false],
-                                 message: "Gender is valid"}, allow_nil: true
   validates :password, presence: true, length:
     {minimum: Settings.password_min}, allow_nil: true
   validates :password, presence: true, length:
     {minimum: Settings.password_min}, on: :reset_password
   validates :wallet, numericality: {greater_than_or_equal_to: 0},
     allow_nil: true
-
-  before_create :create_activation_digest
-
-  enum role: {admin: 0, owner: 1, user: 2}
   has_one_attached :avatar
   has_secure_password
-
-  scope :order_active, ->{order activated: :desc}
-  scope :search_full_name, ->search{where "full_name LIKE ?", "%#{search}%"}
-  scope :search_email, ->search{where "email LIKE ?", "%#{search}%"}
-  scope :not_user, ->(user_id){where "id NOT IN (?)", user_id}
-  scope :order_active, ->{order activated: :desc}
-
+  enum role: {admin: 0, owner: 1, user: 2}
+  scope :recently, ->{order created_at: :desc}
   scope :search, (lambda do |search|
     if search
       where("full_name LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")

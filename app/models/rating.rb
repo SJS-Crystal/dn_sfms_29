@@ -9,7 +9,6 @@ class Rating < ApplicationRecord
   validates :content, presence: true, length: {minimum: Settings.size.s10}
   validates :star, presence: true, numericality: true, format: {with: NUMBER}
 
-  delegate :start_time, :end_time, to: :subpitch, prefix: true
   delegate :status, :total_price, to: :booking, prefix: true
   delegate :full_name, to: :user, prefix: true
 

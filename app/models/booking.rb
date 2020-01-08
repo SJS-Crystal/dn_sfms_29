@@ -3,10 +3,6 @@ class Booking < ApplicationRecord
   belongs_to :subpitch
   has_one :rating, dependent: :destroy
 
-  delegate :full_name, to: :user, prefix: true
-  delegate :name, to: :subpitch, prefix: true
-  enum status: {cancel: -1, verifiled_paid: 0,
-                verifiled_not_pay: 1, unverifile: 2}
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :subpitch_id, presence: true
@@ -18,6 +14,9 @@ class Booking < ApplicationRecord
   delegate :pitch, to: :subpitch
   delegate :name, to: :pitch, prefix: true
   delegate :address, to: :pitch, prefix: true
+
+  enum status: {cancel: -1, verifiled_paid: 0,
+                verifiled_not_pay: 1, unverifile: 2}
 
   scope(:today, lambda do
     where "date_format(start_time, \"%Y%m%d\") = ?",
